@@ -7,15 +7,18 @@ $(document).ready(function () {
     contractInstance = new web3.eth.Contract(
       abi,
       //"0xdBE87Bd65e30974ffEE7a37eDE7dd5E99DDC7B66",
-      "0x72a6ff7054ebff348b4a207dac48857c6a588862",
+      "0x6CF70D40c43b42C6Bc2eaaaD285A6aB965d8FFD2",
       { from: accounts[0] }
     );
     console.log(contractInstance);
     address = accounts[0];
     //getBalance();
   });
-  $("#bet_button").click(flip); //inputData
-  //$("#fund_contract").click(fundContract);
+
+  //Click Events 
+  $("#bet_button").click(flip); 
+  $('#fund_contract_button').click(fundContract);
+  $('#withdraw_funds_button').click(widthdrawFunds);
 });
 
 function flip() {
@@ -85,45 +88,26 @@ function getBalance() {
       //$("#balance").html(result);
     });
 }
-//contractInstance.methods.createBet(coinSide).send(config);
-// .on("transactionHash", function (hash) {
-//   console.log(hash);
-// })
-// .on("confirmation", function (confirmationNr) {
-//   console.log(confirmationNr);
-// })
-// .on("receipt", function (receipt) {
-//   console.log(receipt);
 
-//$("#bet_button").click(fetchAndDisplay);
+function fundContract() {
+  var val = $('#funding_input').val();
+  var config = {
+    value:web3.utils.toWei(val.toString(), "ether")
+  }
+  contractInstance.methods.deposit().send(config).on("transactionHash", function(hash) {
+    console.log(hash);//hash
+  })
+  .on("receipt", function (receipt) {
+    console.log("receipt");
+    getBalance();
+})
+}
 
-//Heads or Tails option
-//   $("#heads").click(function () {
-//     optionChosen = 0;
-//     console.log(optionChosen);
-//   });
-//   $("#tails").click(function () {
-//     optionChosen = 1;
-//     console.log(optionChosen);
-//   });
-// });
+function widthdrawFunds() {
+  contractInstance.methods.withdrawAll().send({from: address})
+    .on("receipt", function(receipt){
+      alert("Balance withdrawn!")
+      getBalance();
+    })
+}
 
-//function inputData() {
-// var name = $("#name_input").val();
-// var age = $("#age_input").val();
-// var height = $("#height_input").val();
-// var coinside = $("#heads").click(function () {
-//   coinside = 0;
-//   return coinside;
-// });
-// var coinside = $("#tails").click(function () {
-//   coinside = 1;
-//   return coinside;
-// });
-
-// function headsOrTails() {
-//   //$("#tails_button").click();
-//   var playerChoice = $("#tails").val();
-//   var playerChoice = $("#heads").val();
-//   //var coinside = $("input[name=coinside]:checked").val();
-//   console.log(playerChoice);

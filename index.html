@@ -75,22 +75,14 @@
         <label for="Tails"> Tails </label>
       </div>
 
-      <!--  //FUND CONTRACT
-        <p><div>
-          <input type="text" id="fund_input" placeholder="Add Funds">ETH
-        </div>
-        <button type="button" id="fund_contract">Fund Contract!</button>
-      </div></p> -->
-
-      <!-- <div>
-        <h2>Get Your Data</h2>
-        <div>Name: <span id="name_output"></span></div>
-        <div>Age: <span id="age_output"></span></div>
-        <div>Height: <span id="height_output"></span></div>
-        <button type="button" id="get_data_button" class="btn btn-primary">
-          Get Data
-        </button>
-      </div> -->
+      <div class="admin" id="admin">
+        <h2>Admin Area</h2>
+        Owner: <span id="ownerAddress_output"></span>
+        <p>Fund the Contract [ETH]:</p>
+        <input type="number" style='width:5em' id="funding_input" placeholder="ETH" step="0.1" min="0.1" max="100" ><br><br>
+        <button type="button" id="fund_contract_button" class="btn btn-primary">Fund Contract</button>
+        <button type="button" id="withdraw_funds_button" class="btn btn-primary">Withdraw Funds</button>
+      </div>
     </div>
   </body>
 </html>

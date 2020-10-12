@@ -28,8 +28,7 @@ contract Coinflip is Ownable, usingProvable {
     function update() public payable {
         uint256 QUERY_EXECUTION_DELAY = 0;
         uint256 GAS_FOR_CALLBACK = 200000;
-        bytes32 queryId =
-        provable_newRandomDSQuery(
+        bytes32 queryId = provable_newRandomDSQuery(
             QUERY_EXECUTION_DELAY,
             NUM_RANDOM_BYTES_REQUESTED,
             GAS_FOR_CALLBACK
@@ -81,11 +80,5 @@ contract Coinflip is Ownable, usingProvable {
         balance = 0;
         msg.sender.transfer(toTransfer);
         return toTransfer;
-    }
-
-    function fundContract() public payable onlyOwner returns (uint256) {
-        require(msg.value != 0);
-        //emit funded(msg.sender, msg.value);
-        return msg.value;
     }
 }
