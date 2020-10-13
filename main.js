@@ -7,12 +7,13 @@ $(document).ready(function () {
     contractInstance = new web3.eth.Contract(
       abi,
       //"0xdBE87Bd65e30974ffEE7a37eDE7dd5E99DDC7B66",
-      "0x6CF70D40c43b42C6Bc2eaaaD285A6aB965d8FFD2",
+      "0x8aa3E3d5E2930e28b2851cc34cE34948117eb8EE",
       { from: accounts[0] }
     );
     console.log(contractInstance);
     address = accounts[0];
     //getBalance();
+    checkAdmin()
   });
 
   //Click Events 
@@ -111,3 +112,13 @@ function widthdrawFunds() {
     })
 }
 
+function checkAdmin() {
+  contractInstance.methods.checkAdmin().call({from: address}).then(function(result){
+    if(result){
+      $('#admin').show();
+      $('#ownerAddress_output').html(address);
+    } else{
+        $('#admin').hide()
+      }
+  })
+}

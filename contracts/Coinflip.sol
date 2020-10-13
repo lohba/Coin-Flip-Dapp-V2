@@ -7,19 +7,20 @@ contract Coinflip is Ownable, usingProvable {
     uint256 constant NUM_RANDOM_BYTES_REQUESTED = 1;
 
     event LogNewProvableQuery(string description);
-    event generatedRandomNumber(uint256 randomNumber);
+    event generatedRandomNumber(bool randomNumber);
+    event resultOutcome(address player, bool won, uint256 playerBalance);
 
     // constructor() public {
     //     update();
     // }
-    
+
     mapping(address => bool) public bettings;
     mapping(bytes32 => Bet) public waiting;
-    mapping(address => uint) private playerBalances;
-   
+    mapping(address => uint256) private playerBalances;
+
     uint256 public balance;
 
-      struct Bet {
+    struct Bet {
         address player;
         uint256 betValue;
         bool heads;
@@ -80,12 +81,25 @@ contract Coinflip is Ownable, usingProvable {
     ) public {
         require(msg.sender == provable_cbAddress());
         bool result = (uint256(keccak256(abi.encodePacked(_result))) % 2) != 0;
-        if(result = waiting[_queryId].heads){
+        if (result = waiting[_queryId].heads) {
             waiting[_queryId].won = true;
             balance = balance - (waiting[_queryId].betValue);
-            playerBalances[]
+            playerBalances[waiting[_queryId].player] +=
+                2 *
+                (waiting[_queryId].betValue);
+        } else {
+            waiting[_queryId].won = false;
+            balance += (waiting[_queryId].betValue);
+            //playerBalances[waiting[_queryId].player] - (waiting[_queryId].betValue)
         }
-        emit generatedRandomNumber(randomNumber);
+        emit generatedRandomNumber(result);
+        emit resultOutcome(
+            waiting[_queryId].player,
+            waiting[_queryId].won,
+            playerBalances[waiting[_queryId].player]
+        );
+        //clear mapping
+        delete waiting[_queryId];
     }
 
     function deposit() public payable {
