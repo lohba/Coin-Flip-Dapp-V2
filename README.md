@@ -1,3 +1,4 @@
 # Coin-Flip-Dapp-v2
 
-An Ethereum based Dapp that allows users to bet ether on a coin flip using external Orcalce calls to generate a random side
+The Coin Flip Dapp is a decentralized web application which allows the user to bet ether through a smart contract.
+An external Orcalce call is used to generate a random side which determines whether a player wins or loses. 
