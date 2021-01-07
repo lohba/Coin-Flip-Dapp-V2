@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/lohba/Coin-Flip-Dapp#readme",
   "dependencies": {
-    "@truffle/hdwallet-provider": "^1.1.0"
+    "@truffle/hdwallet-provider": "^1.2.1",
+    "web3modal": "^1.9.2"
   }
 }

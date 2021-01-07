@@ -45,7 +45,7 @@ function flip() {
   var betValue = $("#bet_input").val();
   var config = {
     value: web3.utils.toWei(betValue.toString(), "ether"),
-    gas: 100000,
+    //gas: 100000,
   };
 
   contractInstance.methods
